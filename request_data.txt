@@ -1,0 +1,525 @@
+Client IP: 192.168.43.205:59414
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 15.425µs
+Timestamp: 2024-12-28T20:12:18+05:30
+Client Data: Test message
+
+Client IP: [::1]:46206
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 26.207µs
+Timestamp: 2024-12-28T20:47:17+05:30
+Client Data: Hello, Node!
+
+Client IP: [::1]:51602
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 19.232µs
+Timestamp: 2024-12-28T20:47:28+05:30
+Client Data: Hello, Node!
+
+Client IP: 192.168.43.205:32862
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 25.921µs
+Timestamp: 2024-12-28T20:48:13+05:30
+Client Data: {"message":"Prepare to transfer data to the client.","node_id":"node-204810"}
+
+Client IP: 192.168.43.205:32862
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 51.105µs
+Timestamp: 2024-12-28T20:48:18+05:30
+Client Data: {"message":"Data transfer completed.","node_id":"node-204810"}
+
+Client IP: 192.168.152.205:48458
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 20.674µs
+Timestamp: 2024-12-28T21:01:41+05:30
+Client Data: {"message":"Node transfer notification","node_id":"node-210059"}
+
+Client IP: [::1]:55790
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 22.994µs
+Timestamp: 2024-12-28T21:01:43+05:30
+Client Data: {"message":"Hello, Server Node!"}
+
+Client IP: 192.168.152.205:56648
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 40.925µs
+Timestamp: 2024-12-28T21:05:21+05:30
+Client Data: {"message":"Node transfer notification","node_id":"node-210516"}
+
+Client IP: [::1]:44244
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 38.955µs
+Timestamp: 2024-12-28T21:05:23+05:30
+Client Data: {"message":"Hello, Server Node!"}
+
+Client IP: 192.168.152.205:50268
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 11.904µs
+Timestamp: 2024-12-28T21:08:56+05:30
+Client Data: {"message":"Node transfer notification","node_id":"node-210844"}
+
+Client IP: [::1]:58528
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 48.286µs
+Timestamp: 2024-12-28T21:08:58+05:30
+Client Data: {"message":"Hello, Server Node!"}
+
+Client IP: 192.168.152.205:44502
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 28.403µs
+Timestamp: 2024-12-28T21:12:01+05:30
+Client Data: {"message":"Node transfer notification","node_id":"node-211125"}
+
+Client IP: [::1]:39516
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 9.001µs
+Timestamp: 2024-12-28T21:12:03+05:30
+Client Data: 
+
+Client IP: [::1]:39516
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 26.026µs
+Timestamp: 2024-12-28T21:12:08+05:30
+Client Data: 
+
+Client IP: [::1]:39516
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 26.817µs
+Timestamp: 2024-12-28T21:12:13+05:30
+Client Data: 
+
+Client IP: [::1]:39516
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 27.106µs
+Timestamp: 2024-12-28T21:12:18+05:30
+Client Data: 
+
+Client IP: [::1]:39516
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 33.329µs
+Timestamp: 2024-12-28T21:12:23+05:30
+Client Data: 
+
+Client IP: 192.168.152.205:42550
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 25.396µs
+Timestamp: 2024-12-28T21:44:24+05:30
+Client Data: {"message":"Node transfer notification","node_id":"node-214413"}
+
+Client IP: [::1]:36476
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 30.023µs
+Timestamp: 2024-12-28T21:44:26+05:30
+Client Data: 
+
+Client IP: [::1]:36476
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 32.167µs
+Timestamp: 2024-12-28T21:44:31+05:30
+Client Data: 
+
+Client IP: [::1]:36476
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 26.308µs
+Timestamp: 2024-12-28T21:44:36+05:30
+Client Data: 
+
+Client IP: [::1]:36476
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 29.197µs
+Timestamp: 2024-12-28T21:44:41+05:30
+Client Data: 
+
+Client IP: [::1]:36476
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 18.58µs
+Timestamp: 2024-12-28T21:44:46+05:30
+Client Data: 
+
+Client IP: 192.168.152.205:44302
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 24.829µs
+Timestamp: 2024-12-28T21:46:05+05:30
+Client Data: {"message":"Node transfer notification","node_id":"node-214456"}
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 28.991µs
+Timestamp: 2024-12-28T21:46:07+05:30
+Client Data: 
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 22.968µs
+Timestamp: 2024-12-28T21:46:12+05:30
+Client Data: 
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 30.732µs
+Timestamp: 2024-12-28T21:46:17+05:30
+Client Data: 
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 28.11µs
+Timestamp: 2024-12-28T21:46:22+05:30
+Client Data: 
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 21.425µs
+Timestamp: 2024-12-28T21:46:27+05:30
+Client Data: 
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 20.531µs
+Timestamp: 2024-12-28T21:46:32+05:30
+Client Data: 
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 20.527µs
+Timestamp: 2024-12-28T21:46:37+05:30
+Client Data: 
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 30.824µs
+Timestamp: 2024-12-28T21:46:42+05:30
+Client Data: 
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 18.931µs
+Timestamp: 2024-12-28T21:46:47+05:30
+Client Data: 
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 16.947µs
+Timestamp: 2024-12-28T21:46:52+05:30
+Client Data: 
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 103.828µs
+Timestamp: 2024-12-28T21:46:57+05:30
+Client Data: 
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 15.828µs
+Timestamp: 2024-12-28T21:47:02+05:30
+Client Data: 
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 23.005µs
+Timestamp: 2024-12-28T21:47:07+05:30
+Client Data: 
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 22.661µs
+Timestamp: 2024-12-28T21:47:12+05:30
+Client Data: 
+
+Client IP: [::1]:46632
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 29.85µs
+Timestamp: 2024-12-28T21:47:17+05:30
+Client Data: 
+
+Client IP: 192.168.152.205:44302
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 19.867µs
+Timestamp: 2024-12-28T21:47:22+05:30
+Client Data: {"message":"Node transfer notification","node_id":"node-214456"}
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 19.033µs
+Timestamp: 2024-12-28T21:47:24+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 31.007µs
+Timestamp: 2024-12-28T21:47:29+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 30.253µs
+Timestamp: 2024-12-28T21:47:34+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 27.268µs
+Timestamp: 2024-12-28T21:47:39+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 26.367µs
+Timestamp: 2024-12-28T21:47:44+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 37.747µs
+Timestamp: 2024-12-28T21:47:49+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 25.854µs
+Timestamp: 2024-12-28T21:47:54+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 33.051µs
+Timestamp: 2024-12-28T21:47:59+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 14.636µs
+Timestamp: 2024-12-28T21:48:04+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 14.65µs
+Timestamp: 2024-12-28T21:48:09+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 14.447µs
+Timestamp: 2024-12-28T21:48:14+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 14.031µs
+Timestamp: 2024-12-28T21:48:19+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 23.363µs
+Timestamp: 2024-12-28T21:48:24+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 25.461µs
+Timestamp: 2024-12-28T21:48:29+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 34.087µs
+Timestamp: 2024-12-28T21:48:34+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 32.407µs
+Timestamp: 2024-12-28T21:48:39+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 42.062µs
+Timestamp: 2024-12-28T21:48:44+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 24.171µs
+Timestamp: 2024-12-28T21:48:49+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 30.901µs
+Timestamp: 2024-12-28T21:48:54+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 31.032µs
+Timestamp: 2024-12-28T21:48:59+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 38.308µs
+Timestamp: 2024-12-28T21:49:04+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 15.477µs
+Timestamp: 2024-12-28T21:49:09+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 34.063µs
+Timestamp: 2024-12-28T21:49:14+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 31.632µs
+Timestamp: 2024-12-28T21:49:19+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 27.481µs
+Timestamp: 2024-12-28T21:49:24+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 37.912µs
+Timestamp: 2024-12-28T21:49:29+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 13.691µs
+Timestamp: 2024-12-28T21:49:34+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 28.283µs
+Timestamp: 2024-12-28T21:49:39+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 32.757µs
+Timestamp: 2024-12-28T21:49:44+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 34.398µs
+Timestamp: 2024-12-28T21:49:49+05:30
+Client Data: 
+
+Client IP: [::1]:43860
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 27.277µs
+Timestamp: 2024-12-28T21:49:54+05:30
+Client Data: 
+
+Client IP: 192.168.152.205:52982
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 19.208µs
+Timestamp: 2024-12-28T21:52:54+05:30
+Client Data: {"message":"Node transfer notification","node_id":"node-215058"}
+
+Client IP: 192.168.152.205:43866
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 15.113µs
+Timestamp: 2024-12-28T21:54:16+05:30
+Client Data: {"message":"Node transfer notification","node_id":"node-215329"}
+
+Client IP: 192.168.152.205:49594
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 21.079µs
+Timestamp: 2024-12-28T21:56:12+05:30
+Client Data: {"message":"Node transfer notification","node_id":"node-215329"}
+
+Client IP: 192.168.152.205:58470
+Client GeoLocation: (40.712800, -74.006000)
+Node GeoLocation: (0.000000, 0.000000)
+Latency: 32.57µs
+Timestamp: 2024-12-28T22:05:52+05:30
+Client Data: {"key": "value", "message": "Hello, server!"}
+

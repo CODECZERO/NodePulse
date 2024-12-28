@@ -1,0 +1,106 @@
+Here’s an updated version of your README that includes instructions for running the three different files:
+
+---
+
+# LatentEdge
+
+**LatentEdge** is a distributed network optimization system designed to reduce latency by serving data from the nearest server to the client. By leveraging geographic location and server proximity, this system ensures faster response times and improved reliability, even if the main server goes down.
+
+Built with **Go (Golang)**, LatentEdge includes:
+- A main server for node redirection (acts as a reverse proxy).
+- A nearest server node for handling data transfer.
+- A test client for interacting with the nearest server node.
+
+## Features
+- **Reduced Latency:** Data is served from the nearest server to the client, minimizing physical latency.
+- **Reliability:** Even if the main server fails, the connection stays alive by redirecting clients to the nearest server.
+- **Scalability:** Ideal for applications requiring low-latency data transfer, such as **CDNs**, **gaming**, **IoT**, **cloud services**, and **real-time tools**.
+- **Data Logging:** Server nodes log received data for testing and optimization, helping to analyze performance improvements.
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/LatentEdge.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd LatentEdge
+   ```
+
+3. Install dependencies:
+   ```bash
+   go mod tidy
+   ```
+
+## Running the System
+
+The system consists of **3 components** that need to be run separately:
+
+### 1) **mainServer** (Acts as a Reverse Proxy)
+
+The main server manages requests from clients and redirects them to the nearest server node based on the client's geographical location. To start the main server:
+
+```bash
+go run main_server.go
+```
+
+This will start the main server, which listens for client requests.
+
+### 2) **serverNode**
+
+The nearest server node handles the actual data transfer and interacts with the client. To run the nearest server node:
+
+```bash
+go run nearest_server_node.go
+```
+
+The nearest server node will wait for connections from the main server and serve data to the client.
+
+### 3) **Client** (Test Client)
+
+The client is a simple utility to interact with the nearest server node for testing purposes. The client sends the geographic coordinates to the main server and receives the nearest node's information, which it then connects to for data interaction. To run the client:
+
+```bash
+go run client.go
+```
+
+This will simulate a client sending location data and receiving the nearest server's response.
+
+> **Note:** You can modify the client code or interact with it in any way you prefer for testing purposes. It’s just a test utility for interacting with the nearest server.
+
+## Usage
+
+Once all components are running:
+
+1. The **client** sends a request with geographical coordinates to the **main server**.
+2. The **main server** processes the request and redirects the client to the nearest **server node**.
+3. The **server node** processes the client’s request and sends back the necessary data.
+
+### Example Request from the Client:
+```bash
+GET http://localhost:8080/redirect-client?lat=40.730610&lon=-73.935242
+```
+
+The main server will respond with the nearest node's details, including its IP address and port.
+
+## Experimentation and Motivation
+
+This project is a result of my experimentation with **distributed systems** and **network optimization**. The goal was to explore how geographic proximity between servers and clients can reduce latency and improve system performance, especially in distributed systems like **CDNs**, **gaming**, **cloud computing**, and **IoT** applications.
+
+## License
+
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+Feel free to fork the repository, open issues, and submit pull requests. Contributions are welcome!
+
+## Feedback & Suggestions
+
+Feel free to open issues or contact me with suggestions, ideas, or feedback. Let's collaborate and improve **LatentEdge**!
+
+---
+
+This updated README now clearly explains how to run all three components of your system (main server, nearest server node, and client) and provides detailed instructions on each part of the process.
