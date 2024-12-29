@@ -1,0 +1,9 @@
+Timestamp,Activity,MemoryTotal,MemoryUsed,MemoryUsedPercent,CPUUsage,LoadAvg,Uptime,PowerUsage
+2024-12-29T22:36:42+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>),%!f(<nil>)
+2024-12-29T22:36:47+05:30,Request received and processed,%!f(uint64=11675),%!f(uint64=6953),59.56,14.36,1.79,14943,0.00
+2024-12-29T22:36:47+05:30,Request received and processed,%!f(uint64=11675),%!f(uint64=6940),59.44,16.15,1.79,14943,0.00
+2024-12-29T22:36:49+05:30,Request received and processed,%!f(uint64=11675),%!f(uint64=6941),59.46,14.70,1.79,14945,0.00
+2024-12-29T22:36:52+05:30,Request received and processed,%!f(uint64=11675),%!f(uint64=6974),59.74,13.35,1.89,14948,0.00
+2024-12-29T22:36:54+05:30,Request received and processed,%!f(uint64=11675),%!f(uint64=6941),59.45,13.74,1.89,14950,0.00
+2024-12-29T22:36:57+05:30,Request received and processed,%!f(uint64=11675),%!f(uint64=6930),59.36,13.33,1.98,14953,0.00
+2024-12-29T22:36:59+05:30,Request received and processed,%!f(uint64=11675),%!f(uint64=6965),59.66,20.10,1.98,14955,0.00

@@ -38,7 +38,7 @@ Built with **Go (Golang)**, LatentEdge includes:
 
 The system consists of **3 components** that need to be run separately:
 
-### 1) **mainServer** (Acts as a Reverse Proxy)
+### 1) **Main Server** (Acts as a Reverse Proxy)
 
 The main server manages requests from clients and redirects them to the nearest server node based on the client's geographical location. To start the main server:
 
@@ -48,7 +48,7 @@ go run main_server.go
 
 This will start the main server, which listens for client requests.
 
-### 2) **serverNode**
+### 2) **Nearest Server Node**
 
 The nearest server node handles the actual data transfer and interacts with the client. To run the nearest server node:
 
@@ -76,7 +76,7 @@ Once all components are running:
 
 1. The **client** sends a request with geographical coordinates to the **main server**.
 2. The **main server** processes the request and redirects the client to the nearest **server node**.
-3. The **server node** processes the client’s request and sends back the necessary data.
+3. The **nearest server node** processes the client’s request and sends back the necessary data.
 
 ### Example Request from the Client:
 ```bash
@@ -100,7 +100,3 @@ Feel free to fork the repository, open issues, and submit pull requests. Contrib
 ## Feedback & Suggestions
 
 Feel free to open issues or contact me with suggestions, ideas, or feedback. Let's collaborate and improve **LatentEdge**!
-
----
-
-This updated README now clearly explains how to run all three components of your system (main server, nearest server node, and client) and provides detailed instructions on each part of the process.
