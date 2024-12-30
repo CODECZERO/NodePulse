@@ -1,8 +1,7 @@
-//it has to be created as for this current version of the code, the server node is having power usage data based on different metrics and devices.
+// Full working code with the requested changes
 package main
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -14,13 +13,13 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/StackExchange/wmi"
 	"github.com/google/uuid"
 	"github.com/rs/cors"
 	"github.com/shirou/gopsutil/cpu"
-	"github.com/shirou/gopsutil/mem"
 	"github.com/shirou/gopsutil/host"
 	"github.com/shirou/gopsutil/load"
-	"github.com/StackExchange/wmi"
+	"github.com/shirou/gopsutil/mem"
 )
 
 // Node structure for server node details
@@ -109,7 +108,7 @@ func captureSystemUsage() (map[string]interface{}, error) {
 		return nil, err
 	}
 
-	powerUsage, err := getPowerUsage() // Capture actual power usage
+	powerUsage, err := getPowerUsage()
 	if err != nil {
 		log.Println("Error fetching power usage:", err)
 	}
@@ -121,7 +120,7 @@ func captureSystemUsage() (map[string]interface{}, error) {
 		"CPU Usage %":       cpuUsage[0],
 		"Load Average (1m)": loadStats.Load1,
 		"Uptime":            hostInfo.Uptime,
-		"Power Usage (W)":   powerUsage, // Actual power usage
+		"Power Usage (W)":   powerUsage,
 	}
 
 	return usageData, nil
@@ -133,7 +132,6 @@ func getPowerUsage() (float64, error) {
 		PowerState int32
 	}
 
-	// Query WMI for power status information
 	err := wmi.Query("SELECT * FROM Win32_Battery", &powerStatus)
 	if err != nil {
 		return 0, err
@@ -143,142 +141,79 @@ func getPowerUsage() (float64, error) {
 		return 0, fmt.Errorf("No power data found")
 	}
 
-	// Example of returning battery status as a power estimate (in watts)
-	// In practice, you'd need to adjust this based on actual power metrics.
 	return float64(powerStatus[0].PowerState), nil
 }
 
-// Function to save system and client data to a CSV file (active log)
-func saveActiveLog(clientIP string, clientLatitude, clientLongitude float64, nodeLatitude, nodeLongitude float64, latency float64, timestamp string, clientData string, systemUsage map[string]interface{}) {
-	fileName := "active_log_ServerNode.csv"
+// Function to measure network latency
+func measureLatency(clientIP string) (float64, error) {
+	start := time.Now()
+	conn, err := net.DialTimeout("tcp", clientIP, time.Second*5)
+	if err != nil {
+		return 0, err
+	}
+	conn.Close()
+	latency := time.Since(start).Seconds() * 1000
+	return latency, nil
+}
 
-	// Check if the CSV file exists, and if not, create it and add headers
-	if _, err := os.Stat(fileName); os.IsNotExist(err) {
-		file, err := os.Create(fileName)
+// Function to save logs in a specified folder
+func saveLogFile(folder string, fileName string, content string) {
+	if _, err := os.Stat(folder); os.IsNotExist(err) {
+		err := os.MkdirAll(folder, 0755)
 		if err != nil {
-			log.Printf("Error creating active log CSV file: %v\n", err)
+			log.Printf("Error creating folder %s: %v\n", folder, err)
 			return
-		}
-		defer file.Close()
-
-		// Write header row
-		headers := "ClientIP,ClientLatitude,ClientLongitude,NodeLatitude,NodeLongitude,Latency,Timestamp,ClientData,MemoryTotal,MemoryUsed,MemoryUsedPercent,CPUUsage,LoadAvg,Uptime,PowerUsage\n"
-		if _, err := file.WriteString(headers); err != nil {
-			log.Printf("Error writing headers to active log CSV file: %v\n", err)
 		}
 	}
 
-	// Open CSV file in append mode
-	file, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	filePath := folder + "/" + fileName
+	file, err := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
-		log.Printf("Error opening active log CSV file: %v\n", err)
+		log.Printf("Error opening file %s: %v\n", filePath, err)
 		return
 	}
 	defer file.Close()
 
-	// Format: ClientIP, ClientLatitude, ClientLongitude, NodeLatitude, NodeLongitude, Latency, Timestamp, ClientData, System Usage
+	if _, err := file.WriteString(content); err != nil {
+		log.Printf("Error writing to file %s: %v\n", filePath, err)
+	}
+}
+
+// Function to save system and client data to a CSV file
+func saveActiveLog(folder string, clientIP string, clientLatitude, clientLongitude, nodeLatitude, nodeLongitude, latency float64, timestamp string, clientData string, systemUsage map[string]interface{}) {
+	fileName := "active_log_ServerNode.csv"
+	headers := "ClientIP,ClientLatitude,ClientLongitude,NodeLatitude,NodeLongitude,Latency,Timestamp,ClientData,MemoryTotal,MemoryUsed,MemoryUsedPercent,CPUUsage,LoadAvg,Uptime,PowerUsage\n"
+
+	if _, err := os.Stat(folder + "/" + fileName); os.IsNotExist(err) {
+		saveLogFile(folder, fileName, headers)
+	}
+
 	logEntry := fmt.Sprintf(
 		"%s,%.6f,%.6f,%.6f,%.6f,%.3f,%s,%s,%.2f,%.2f,%.2f,%.2f,%.2f,%d,%.2f\n",
-		clientIP,
-		clientLatitude,
-		clientLongitude,
-		nodeLatitude,
-		nodeLongitude,
-		latency,
-		timestamp,
-		clientData,
-		systemUsage["Memory Total"],
-		systemUsage["Memory Used"],
-		systemUsage["Memory Used %"],
-		systemUsage["CPU Usage %"],
-		systemUsage["Load Average (1m)"],
-		systemUsage["Uptime"],
-		systemUsage["Power Usage (W)"],
+		clientIP, clientLatitude, clientLongitude, nodeLatitude, nodeLongitude, latency, timestamp, clientData,
+		systemUsage["Memory Total"], systemUsage["Memory Used"], systemUsage["Memory Used %"],
+		systemUsage["CPU Usage %"], systemUsage["Load Average (1m)"],
+		systemUsage["Uptime"], systemUsage["Power Usage (W)"],
 	)
-	if _, err := file.WriteString(logEntry); err != nil {
-		log.Printf("Error writing to active log CSV file: %v\n", err)
-	}
+	saveLogFile(folder, fileName, logEntry)
 }
 
-// Function to save passive logs (background server operations)
-func savePassiveLog(activity string) {
+// Function to save passive logs
+func savePassiveLog(folder string, activity string) {
 	fileName := "passive_log_ServerNode.csv"
-
-	// Check if the CSV file exists, and if not, create it and add headers
-	if _, err := os.Stat(fileName); os.IsNotExist(err) {
-		file, err := os.Create(fileName)
-		if err != nil {
-			log.Printf("Error creating passive log CSV file: %v\n", err)
-			return
-		}
-		defer file.Close()
-
-		// Write header row
-		headers := "Timestamp,Activity\n"
-		if _, err := file.WriteString(headers); err != nil {
-			log.Printf("Error writing headers to passive log CSV file: %v\n", err)
-		}
+	headers := "Timestamp,Activity\n"
+	if _, err := os.Stat(folder + "/" + fileName); os.IsNotExist(err) {
+		saveLogFile(folder, fileName, headers)
 	}
 
-	// Open CSV file in append mode
-	file, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		log.Printf("Error opening passive log CSV file: %v\n", err)
-		return
-	}
-	defer file.Close()
-
-	// Format: Timestamp, Activity
 	logEntry := fmt.Sprintf(
 		"%s,%s\n",
-		time.Now().Format("2006-01-02T15:04:05-07:00"),
-		activity,
+		time.Now().Format("2006-01-02T15:04:05-07:00"), activity,
 	)
-	if _, err := file.WriteString(logEntry); err != nil {
-		log.Printf("Error writing to passive log CSV file: %v\n", err)
-	}
+	saveLogFile(folder, fileName, logEntry)
 }
 
-// Function to self-register the server node with the main server
-func selfRegister(mainServerURL string, node Node) {
-	data, err := json.Marshal(node)
-	if err != nil {
-		log.Println("Error marshalling node data:", err)
-		return
-	}
-
-	log.Println("Attempting to register with the main server...")
-	resp, err := http.Post(mainServerURL+"/register-node", "application/json", bytes.NewBuffer(data))
-	if err != nil {
-		log.Println("Error registering node with the main server:", err)
-		return
-	}
-	defer resp.Body.Close()
-
-	responseBody, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Println("Error reading response body:", err)
-		return
-	}
-
-	log.Printf("Main server response: %s\n", string(responseBody))
-	if resp.StatusCode == http.StatusOK {
-		log.Println("Node successfully registered with the main server.")
-		savePassiveLog("Node registered with main server")
-	} else {
-		log.Printf("Failed to register node. Status code: %d\n", resp.StatusCode)
-		savePassiveLog("Node registration failed")
-	}
-}
-
-// Handler for health check endpoint
-func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
-	savePassiveLog("Health check received")
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(`{"status":"active"}`))
-}
-
-// Handler for incoming requests (e.g., for receiving data/files)
+// Handler for incoming requests
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 	clientIP := r.RemoteAddr
 	requestBody, err := ioutil.ReadAll(r.Body)
@@ -287,32 +222,27 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Fetch the client's geolocation
 	clientLatitude, clientLongitude, err := getGeoLocation(clientIP)
 	if err != nil {
 		log.Printf("Error fetching client geolocation: %v\n", err)
 	}
 
-	// Capture system usage data
-	usageData, err := captureSystemUsage()
+	systemUsage, err := captureSystemUsage()
 	if err != nil {
 		log.Printf("Error capturing system usage data: %v\n", err)
 	}
 
-	// Log the system usage data (you can choose to print it or save it)
-	log.Printf("System Usage Data: %+v\n", usageData)
+	latency, err := measureLatency(clientIP)
+	if err != nil {
+		log.Printf("Error measuring latency: %v\n", err)
+	}
 
-	// Get the current timestamp
 	timestamp := time.Now().Format("2006-01-02T15:04:05-07:00")
-
-	// Prepare client data
 	clientData := string(requestBody)
 
-	// Save data to active log (interaction)
-	latency := 0.0 // Example: Simulate a constant latency, modify accordingly
-	saveActiveLog(clientIP, clientLatitude, clientLongitude, serverNode.Latitude, serverNode.Longitude, latency, timestamp, clientData, usageData)
+	folder := "ServerNodeData"
+	saveActiveLog(folder, clientIP, clientLatitude, clientLongitude, serverNode.Latitude, serverNode.Longitude, latency, timestamp, clientData, systemUsage)
 
-	// Prepare the JSON response
 	response := map[string]string{
 		"status":  "ok",
 		"message": "Request received and processed",
@@ -320,35 +250,39 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
-
-	// Save passive log for background operation
-	savePassiveLog("Request received and processed")
+	savePassiveLog(folder, "Request received and processed")
 }
 
 func main() {
 	log.Println("Starting server node...")
 
+	// Create the directory for server node data
+	dataDir := "ServerNodeData"
+	if _, err := os.Stat(dataDir); os.IsNotExist(err) {
+		if err := os.Mkdir(dataDir, 0755); err != nil {
+			log.Fatalf("Error creating data directory: %v\n", err)
+		}
+	}
+	log.Printf("Data directory initialized at: %s\n", dataDir)
+
 	// Fetch public IP address
 	publicIP, err := getPublicIP()
 	if err != nil {
-		log.Println("Error fetching public IP address:", err)
-		return
+		log.Fatalf("Error fetching public IP address: %v\n", err)
 	}
 	log.Println("Public IP Address:", publicIP)
 
 	// Fetch geolocation data
 	latitude, longitude, err := getGeoLocation(publicIP)
 	if err != nil {
-		log.Println("Error fetching geolocation:", err)
-		return
+		log.Fatalf("Error fetching geolocation: %v\n", err)
 	}
 	log.Printf("Geolocation fetched: Latitude: %.6f, Longitude: %.6f\n", latitude, longitude)
 
 	// Fetch local IP address
 	localIP, err := getLocalIPAddress()
 	if err != nil {
-		log.Println("Error fetching local IP address:", err)
-		return
+		log.Fatalf("Error fetching local IP address: %v\n", err)
 	}
 	log.Println("Local IP Address:", localIP)
 
@@ -373,7 +307,9 @@ func main() {
 	selfRegister(mainServerURL, serverNode)
 
 	// Set up HTTP server
-	http.HandleFunc("/receive", handleRequest)
+	http.HandleFunc("/receive", func(w http.ResponseWriter, r *http.Request) {
+		handleRequest(w, r, dataDir)
+	})
 	http.HandleFunc("/health", healthCheckHandler)
 
 	// Enable CORS for all domains
@@ -392,7 +328,7 @@ func main() {
 	go func() {
 		log.Printf("Server listening on port %s...\n", port)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("Error starting server: %v", err)
+			log.Fatalf("Error starting server: %v\n", err)
 		}
 	}()
 
@@ -402,5 +338,7 @@ func main() {
 	<-stop
 
 	log.Println("Shutting down server...")
-	server.Close()
+	if err := server.Close(); err != nil {
+		log.Fatalf("Error shutting down server: %v\n", err)
+	}
 }
