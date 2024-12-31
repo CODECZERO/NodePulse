@@ -34,7 +34,7 @@ type Node struct {
 
 var serverNode Node
 
-const logFolder = "serverNode"
+const logFolder = "serverNodeData"
 
 // Ensure log folder exists
 func ensureLogFolder() error {
@@ -236,6 +236,72 @@ func savePassiveLog(activity string, systemUsage map[string]interface{}) {
 	}
 }
 
+
+
+// Ensure the uploads folder exists
+func ensureUploadsFolder() error {
+	if _, err := os.Stat(logFolder); os.IsNotExist(err) {
+		return os.Mkdir(logFolder, 0755)
+	}
+	return nil
+}
+
+// Handler for file/image upload
+func uploadHandler(w http.ResponseWriter, r *http.Request) {
+	// Limit the size of incoming requests
+	r.Body = http.MaxBytesReader(w, r.Body, 10<<20) // Limit to 10MB
+	if err := r.ParseMultipartForm(10 << 20); err != nil {
+		http.Error(w, "File is too large", http.StatusBadRequest)
+		return
+	}
+
+	// Retrieve the uploaded file
+	file, handler, err := r.FormFile("file")
+	if err != nil {
+		http.Error(w, "Error retrieving the file", http.StatusInternalServerError)
+		return
+	}
+	defer file.Close()
+
+	// Ensure the uploads folder exists
+	if err := ensureUploadsFolder(); err != nil {
+		http.Error(w, "Error ensuring uploads folder", http.StatusInternalServerError)
+		return
+	}
+
+	// Create a new file in the uploads folder
+	filePath := filepath.Join(logFolder, handler.Filename)
+	dst, err := os.Create(filePath)
+	if err != nil {
+		http.Error(w, "Error saving the file", http.StatusInternalServerError)
+		return
+	}
+	defer dst.Close()
+
+	// Copy the uploaded file to the destination
+	if _, err := ioutil.ReadAll(file); err != nil {
+		http.Error(w, "Error reading the file", http.StatusInternalServerError)
+		return
+	}
+
+	_, err = dst.Write([]byte{})
+	if err != nil {
+		http.Error(w, "Error writing the file", http.StatusInternalServerError)
+		return
+	}
+
+	log.Printf("File uploaded successfully: %s\n", filePath)
+
+	// Send a success response
+	response := map[string]string{
+		"status":  "success",
+		"message": "File uploaded successfully",
+		"path":    filePath,
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
+
 // Function to self-register the server node with the main server
 func selfRegister(mainServerURL string, node Node) {
 	data, err := json.Marshal(node)
@@ -369,6 +435,8 @@ func main() {
 	// Set up HTTP server
 	http.HandleFunc("/receive", handleRequest)
 	http.HandleFunc("/health", healthCheckHandler)
+    http.HandleFunc("/upload", uploadHandler)
+
 
 	// Enable CORS for all domains
 	c := cors.New(cors.Options{
