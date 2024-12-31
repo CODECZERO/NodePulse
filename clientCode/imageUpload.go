@@ -53,11 +53,11 @@ func main() {
         nearestNode.ID, nearestNode.IPAddress, nearestNode.Latitude, nearestNode.Longitude, nearestNode.Port)
 
     // Construct the URL to upload a file
-    uploadURL := fmt.Sprintf("http://%s:%s/upload", nearestNode.IPAddress, nearestNode.Port)
+    uploadURL := fmt.Sprintf("http://%s:%s/receive", nearestNode.IPAddress, nearestNode.Port)
     log.Printf("Connecting to server node at: %s", uploadURL)
 
     // Upload a file to the server node
-    filePath := "/Screenshot_2024-12-12_20_12_06.png" // Replace with the actual file path
+    filePath := "/home/mrrip/Pictures/Screenshot_2024-12-12_20_12_06.png" // Replace with the actual file path
     uploadFile(uploadURL, filePath)
 }
 

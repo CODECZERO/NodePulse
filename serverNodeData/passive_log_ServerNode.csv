@@ -94,3 +94,13 @@ Timestamp,Activity,MemoryTotal,MemoryUsed,MemoryUsedPercent,CPUUsage,LoadAvg,Upt
 2024-12-31T00:16:20+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>),%!f(<nil>)
 2024-12-31T00:18:32+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>),%!f(<nil>)
 2024-12-31T00:22:30+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>),%!f(<nil>)
+2024-12-31T21:51:08+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>),%!f(<nil>)
+2024-12-31T21:52:34+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>),%!f(<nil>)
+2024-12-31T21:52:40+05:30,Request received and processed,%!f(uint64=11675),%!f(uint64=5182),44.39,6.07,0.78,3040,0.00
+2024-12-31T21:54:05+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>),%!f(<nil>)
+2024-12-31T21:55:05+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>),%!f(<nil>)
+2024-12-31T21:56:54+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>),%!f(<nil>)
+2024-12-31T21:59:33+05:30,Request received and processed,%!f(uint64=11675),%!f(uint64=5283),45.25,1.67,0.95,3452
+2024-12-31T22:04:09+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>),%!f(<nil>)
+2024-12-31T22:05:51+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>),%!f(<nil>)
+2024-12-31T22:14:27+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>),%!f(<nil>)
