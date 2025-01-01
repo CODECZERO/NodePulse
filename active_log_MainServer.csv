@@ -6,3 +6,7 @@
 [2025-01-01 13:08:21] ACTION: Node registered, DETAILS: {ID:4fdb5bf9-2aed-45b4-baba-ad8e12dfd7ef IPAddress:192.168.152.205 Latitude:0 Longitude:0 Status:active Port:8081}
 [2025-01-01 13:18:51] ACTION: Node registered, DETAILS: {ID:dba870db-c937-4c91-870e-7b72616db6f9 IPAddress:169.254.119.117 Latitude:0 Longitude:0 Status:active Port:8081}
 [2025-01-01 13:20:55] ACTION: Node registered, DETAILS: {ID:e6ce340b-8db5-430c-bb02-427b77b33818 IPAddress:169.254.119.117 Latitude:0 Longitude:0 Status:active Port:8081}
+[2025-01-01 13:39:47] ACTION: Node registered, DETAILS: {ID:61ed6da8-537c-48b9-aaa9-6583402cb359 IPAddress:169.254.119.117 Latitude:0 Longitude:0 Status:active Port:8081}
+[2025-01-01 13:41:31] ACTION: Node registered, DETAILS: {ID:b1c0224e-d68f-48b1-ac6d-4b25d6c5598b IPAddress:169.254.119.117 Latitude:0 Longitude:0 Status:active Port:8081}
+[2025-01-01 13:57:59] ACTION: Node registered, DETAILS: {ID:067e3448-8acf-4ae6-bb5a-f7f1feadc3a1 IPAddress:https://b95c-2409-40c2-1161-f106-7915-c32-dfbb-67f9.ngrok-free.app Latitude:0 Longitude:0 Status:active Port:8081}
+[2025-01-01 14:06:40] ACTION: Node registered, DETAILS: {ID:09beb791-1d00-4649-aad8-18164a1292c2 IPAddress:https://86ee-2409-40c2-1161-f106-7915-c32-dfbb-67f9.ngrok-free.app Latitude:0 Longitude:0 Status:active Port:8081}

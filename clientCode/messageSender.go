@@ -51,7 +51,7 @@ func main() {
         nearestNode.ID, nearestNode.IPAddress, nearestNode.Latitude, nearestNode.Longitude, nearestNode.Port)
 
     // Construct the URL to send messages
-    messageURL := fmt.Sprintf("http://%s:%s/receive", nearestNode.IPAddress, nearestNode.Port)
+    messageURL := fmt.Sprintf("https://52e0-2401-4900-881d-2e92-3403-d39f-6871-fcb2.ngrok-free.app/receive")
     log.Printf("Connecting to server node at: %s", messageURL)
 
     // Start sending messages

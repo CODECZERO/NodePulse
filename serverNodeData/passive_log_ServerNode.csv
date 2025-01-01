@@ -94,3 +94,7 @@ Timestamp,Activity,MemoryTotal,MemoryUsed,MemoryUsedPercent,CPUUsage,LoadAvg,Upt
 2025-01-01T13:08:35+05:30,Request received and processed,%!f(uint64=11675),%!f(uint64=3663),31.38,4.62,1.23,2251
 2025-01-01T13:08:35+05:30,Request received and processed,%!f(uint64=11675),%!f(uint64=3658),31.34,5.70,1.23,2251
 2025-01-01T13:08:39+05:30,Request received and processed,%!f(uint64=11675),%!f(uint64=3648),31.25,10.48,1.13,2256
+2025-01-01T13:57:59+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>)
+2025-01-01T14:01:43+05:30,Node registration failed,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>)
+2025-01-01T14:01:56+05:30,Node registration failed,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>)
+2025-01-01T14:06:40+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>)

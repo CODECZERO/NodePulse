@@ -13,6 +13,7 @@ import (
 	"path/filepath"
 	"syscall"
 	"time"
+	"os/exec"
 
 	"github.com/google/uuid"
 	"github.com/rs/cors"
@@ -57,6 +58,53 @@ func getPublicIP() (string, error) {
 		return "", err
 	}
 	return string(ip), nil
+}
+
+func getNgrokPublicURL() (string, error) {
+	// Start Ngrok
+	cmd := exec.Command("ngrok", "http", "8081") // Assuming the server is running on port 8081
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	err := cmd.Start()
+	if err != nil {
+		return "", fmt.Errorf("failed to start ngrok: %v", err)
+	}
+
+	// Wait for Ngrok to initialize
+	cmd.Wait()
+
+	// Fetch the public URL from Ngrok API
+	urlResp, err := http.Get("http://localhost:4040/api/tunnels")
+	if err != nil {
+		return "", fmt.Errorf("failed to fetch Ngrok public URL: %v", err)
+	}
+	defer urlResp.Body.Close()
+
+	// Read the response body
+	body, err := ioutil.ReadAll(urlResp.Body)
+	if err != nil {
+		return "", fmt.Errorf("failed to read Ngrok API response: %v", err)
+	}
+
+	// Parse the response body to extract the public URL (assumes Ngrok is running on localhost:4040)
+	// The URL is typically under 'public_url' in the response
+	var ngrokAPIResponse struct {
+		Tunnels []struct {
+			PublicURL string `json:"public_url"`
+		} `json:"tunnels"`
+	}
+
+	err = json.Unmarshal(body, &ngrokAPIResponse)
+	if err != nil {
+		return "", fmt.Errorf("failed to parse Ngrok API response: %v", err)
+	}
+
+	if len(ngrokAPIResponse.Tunnels) == 0 {
+		return "", fmt.Errorf("no tunnels found in Ngrok response")
+	}
+
+	// Return the public URL (e.g., "http://<subdomain>.ngrok.io")
+	return ngrokAPIResponse.Tunnels[0].PublicURL, nil
 }
 
 // Function to get geolocation using an external API
@@ -431,6 +479,13 @@ func main() {
 	}
 	log.Println("Local IP Address:", localIP)
 
+	ngrokPublicURL, err := getNgrokPublicURL()
+	if err != nil {
+		log.Println("Error getting Ngrok public URL:", err)
+		return
+	}
+	log.Println("Ngrok Public URL:", ngrokPublicURL)
+
 	// Generate unique node ID
 	nodeID := uuid.New().String()
 
@@ -438,7 +493,7 @@ func main() {
 	port := "8081"
 	serverNode = Node{
 		ID:        nodeID,
-		IPAddress: localIP,
+		IPAddress: ngrokPublicURL,
 		Latitude:  latitude,
 		Longitude: longitude,
 		Port:      port,
@@ -446,7 +501,7 @@ func main() {
 	}
 
 	// Main server URL
-	mainServerURL := "https://b95c-2409-40c2-1161-f106-7915-c32-dfbb-67f9.ngrok-free.app" // Replace with actual main server URL
+	mainServerURL := "https://86ee-2409-40c2-1161-f106-7915-c32-dfbb-67f9.ngrok-free.app" // Replace with actual main server URL
 
 	// Self-register with the main server
 	selfRegister(mainServerURL, serverNode)
