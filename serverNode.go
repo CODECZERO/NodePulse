@@ -96,6 +96,18 @@ func getLocalIPAddress() (string, error) {
 	return "", fmt.Errorf("no IP address found")
 }
 
+func measureLatency(target string) (float64, error) {
+	start := time.Now()
+	resp, err := http.Get(target)
+	if err != nil {
+		return 0, err
+	}
+	defer resp.Body.Close()
+
+	latency := time.Since(start).Seconds() * 1000 // Convert to milliseconds
+	return latency, nil
+}
+
 // Function to capture system resource usage data
 func captureSystemUsage() (map[string]interface{}, error) {
 	memoryStats, err := mem.VirtualMemory()
@@ -117,6 +129,8 @@ func captureSystemUsage() (map[string]interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	
 
 	usageData := map[string]interface{}{
 		"Memory Total":      memoryStats.Total / (1024 * 1024),
@@ -179,12 +193,12 @@ func saveActiveLog(clientIP string, clientLatitude, clientLongitude float64, nod
 		systemUsage["Memory Used %"],
 		systemUsage["CPU Usage %"],
 		systemUsage["Load Average (1m)"],
-		systemUsage["Uptime"],
 	)
 	if _, err := file.WriteString(logEntry); err != nil {
 		log.Printf("Error writing to active log CSV file: %v\n", err)
 	}
 }
+
 
 // Function to save passive logs (background server operations)
 func savePassiveLog(activity string, systemUsage map[string]interface{}) {
@@ -235,8 +249,6 @@ func savePassiveLog(activity string, systemUsage map[string]interface{}) {
 		log.Printf("Error writing to passive log CSV file: %v\n", err)
 	}
 }
-
-
 
 // Ensure the uploads folder exists
 func ensureUploadsFolder() error {
@@ -362,6 +374,14 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		log.Printf("Error capturing system usage data: %v\n", err)
 	}
 
+	latency, err := measureLatency("https://google.com")
+	if err != nil {
+		log.Printf("Error measuring latency: %v\n", err)
+		latency = -1 // Indicate error
+	}
+
+	log.Printf("Measured latency: %.2f ms\n", latency)
+
 	// Get the current timestamp
 	timestamp := time.Now().Format("2006-01-02T15:04:05-07:00")
 
@@ -369,7 +389,6 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	clientData := string(requestBody)
 
 	// Save data to active log (interaction)
-	latency := 0.0 // Example: Simulate a constant latency, modify accordingly
 	saveActiveLog(clientIP, clientLatitude, clientLongitude, serverNode.Latitude, serverNode.Longitude, latency, timestamp, clientData, usageData)
 
 	// Prepare the JSON response
@@ -435,8 +454,7 @@ func main() {
 	// Set up HTTP server
 	http.HandleFunc("/receive", handleRequest)
 	http.HandleFunc("/health", healthCheckHandler)
-    http.HandleFunc("/upload", uploadHandler)
-
+	http.HandleFunc("/upload", uploadHandler)
 
 	// Enable CORS for all domains
 	c := cors.New(cors.Options{
