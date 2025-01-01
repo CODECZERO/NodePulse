@@ -501,7 +501,7 @@ func main() {
 	}
 
 	// Main server URL
-	mainServerURL := "https://86ee-2409-40c2-1161-f106-7915-c32-dfbb-67f9.ngrok-free.app" // Replace with actual main server URL
+	mainServerURL := "http://localhost:8080" // Replace with actual main server URL
 
 	// Self-register with the main server
 	selfRegister(mainServerURL, serverNode)
