@@ -4,3 +4,5 @@
 [2025-01-01 06:53:16] ACTION: Node registered, DETAILS: {ID:cb112bbb-e506-459d-bae9-17868a42692a IPAddress:192.168.152.205 Latitude:0 Longitude:0 Status:active Port:8081}
 [2025-01-01 06:55:29] ACTION: Node registered, DETAILS: {ID:e1357515-d0f4-420c-a478-c4054102823e IPAddress:192.168.152.205 Latitude:0 Longitude:0 Status:active Port:8081}
 [2025-01-01 13:08:21] ACTION: Node registered, DETAILS: {ID:4fdb5bf9-2aed-45b4-baba-ad8e12dfd7ef IPAddress:192.168.152.205 Latitude:0 Longitude:0 Status:active Port:8081}
+[2025-01-01 13:18:51] ACTION: Node registered, DETAILS: {ID:dba870db-c937-4c91-870e-7b72616db6f9 IPAddress:169.254.119.117 Latitude:0 Longitude:0 Status:active Port:8081}
+[2025-01-01 13:20:55] ACTION: Node registered, DETAILS: {ID:e6ce340b-8db5-430c-bb02-427b77b33818 IPAddress:169.254.119.117 Latitude:0 Longitude:0 Status:active Port:8081}

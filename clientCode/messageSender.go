@@ -72,6 +72,9 @@ func sendMessages(url string) {
             continue
         }
 
+        // Measure start time for latency
+        start := time.Now()
+
         // Make an HTTP POST request to the server node
         resp, err := http.Post(url, "application/json", bytes.NewBuffer(jsonData))
         if err != nil {
@@ -80,6 +83,13 @@ func sendMessages(url string) {
             continue
         }
         defer resp.Body.Close()
+
+        // Measure end time for latency
+        end := time.Now()
+
+        // Calculate round-trip latency
+        latency := end.Sub(start)
+        log.Printf("Latency to server: %v", latency)
 
         // Read the raw response body
         body, err := ioutil.ReadAll(resp.Body)
