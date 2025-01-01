@@ -53,7 +53,7 @@ func main() {
         nearestNode.ID, nearestNode.IPAddress, nearestNode.Latitude, nearestNode.Longitude, nearestNode.Port)
 
     // Construct the URL to upload a file
-    uploadURL := fmt.Sprintf("http://%s/upload", nearestNode.IPAddress)
+    uploadURL := fmt.Sprintf("%s/upload", nearestNode.IPAddress)
     log.Printf("Connecting to server node at: %s", uploadURL)
 
     // Upload a file to the server node
