@@ -73,6 +73,8 @@ func findNearestNode(clientLat, clientLon float64) Node {
 	var nearest Node
 	minDistance := math.MaxFloat64
 
+	fmt.Println(nearest)
+
 	mutex.Lock()
 	defer mutex.Unlock()
 
@@ -196,7 +198,7 @@ func redirectClientHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "No active nodes found", http.StatusInternalServerError)
 		return
 	}
-
+	fmt.Println(nearestNode)
 	// Collect system metrics
 	metrics, err := collectSystemMetrics()
 	if err != nil {
@@ -240,7 +242,7 @@ func sendMessageToNode(node Node, message string) {
 	}
 
 	// Construct the node's URL
-	url := fmt.Sprintf("http://%s:%s/receive", node.IPAddress, node.Port)
+	url := fmt.Sprintf("%s", node.IPAddress)
 	fmt.Printf("Sending message to node: %s\n", url)
 
 	// Send the message to the server node

@@ -14,13 +14,13 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/StackExchange/wmi"
 	"github.com/google/uuid"
 	"github.com/rs/cors"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/host"
 	"github.com/shirou/gopsutil/load"
 	"github.com/shirou/gopsutil/mem"
-	"github.com/StackExchange/wmi"
 )
 
 // Node structure for server node details
@@ -59,10 +59,71 @@ func getPublicIP() (string, error) {
 	}
 	return string(ip), nil
 }
+func getNgrokPublicURL() (string, error) {
+	// Create a channel to receive the result from the goroutine
+	resultChan := make(chan string)
+	errorChan := make(chan error)
+
+	go func() {
+		var ngrokURL string
+		// Start Ngrok
+		// Fetch the public URL from Ngrok API
+		urlResp, err := http.Get("http://localhost:4040/api/tunnels")
+		if err != nil {
+			log.Printf("Error fetching Ngrok public URL: %v\n", err)
+			errorChan <- err
+			return
+		}
+		defer urlResp.Body.Close()
+
+		// Read the response body
+		body, err := ioutil.ReadAll(urlResp.Body)
+		if err != nil {
+			log.Printf("Error reading Ngrok API response: %v\n", err)
+			errorChan <- err
+			return
+		}
+
+		// Parse the response body to extract the public URL (assumes Ngrok is running on localhost:4040)
+		var ngrokAPIResponse struct {
+			Tunnels []struct {
+				PublicURL string `json:"public_url"`
+			} `json:"tunnels"`
+		}
+
+		err = json.Unmarshal(body, &ngrokAPIResponse)
+		if err != nil {
+			log.Printf("Error parsing Ngrok API response: %v\n", err)
+			errorChan <- err
+			return
+		}
+
+		if len(ngrokAPIResponse.Tunnels) == 0 {
+			log.Printf("No tunnels found in Ngrok response\n")
+			errorChan <- fmt.Errorf("no tunnels found")
+			return
+		}
+
+		// Set the Ngrok public URL
+		ngrokURL = ngrokAPIResponse.Tunnels[0].PublicURL
+		log.Printf("Ngrok public URL: %s\n", ngrokURL)
+
+		// Send the result back to the channel
+		resultChan <- ngrokURL
+	}()
+
+	// Wait for the result from the goroutine
+	select {
+	case ngrokURL := <-resultChan:
+		return ngrokURL, nil
+	case err := <-errorChan:
+		return "", err
+	}
+}
 
 // Function to get geolocation using an external API
 func getGeoLocation(ip string) (float64, float64, error) {
-	geoAPI := fmt.Sprintf("https://ip-api.com/json/%s", ip)
+	geoAPI := fmt.Sprintf("http://ip-api.com/json/%s", ip)
 	resp, err := http.Get(geoAPI)
 	if err != nil {
 		return 0, 0, err
@@ -96,6 +157,7 @@ func getLocalIPAddress() (string, error) {
 
 	return "", fmt.Errorf("no IP address found")
 }
+
 // Function to get power consumption details
 // Function to get power consumption details
 func getPowerConsumption() (map[string]interface{}, error) {
@@ -121,15 +183,13 @@ func getPowerConsumption() (map[string]interface{}, error) {
 
 	// Prepare the power data map
 	powerData := map[string]interface{}{
-		"Battery Percentage":     batteryInfo[0].EstimatedChargeRemaining,
-		"Is Charging":            batteryInfo[0].PowerOnline,
-		"Time Remaining (hrs)":   "Not available", // WMI doesn't provide exact remaining time, so you'll need a different approach or estimation.
-		"AC Power":               batteryInfo[0].ACLineStatus == 1, // 1 means plugged in, 0 means not plugged in
+		"Battery Percentage":   batteryInfo[0].EstimatedChargeRemaining,
+		"Is Charging":          batteryInfo[0].PowerOnline,
+		"Time Remaining (hrs)": "Not available", // WMI doesn't provide exact remaining time, so you'll need a different approach or estimation.
 	}
 
 	return powerData, nil
 }
-
 
 // Function to capture system resource usage data along with power consumption and WMI data
 func captureSystemUsage() (map[string]interface{}, error) {
@@ -161,8 +221,8 @@ func captureSystemUsage() (map[string]interface{}, error) {
 
 	// WMI data - Operating System Information
 	var osInfo []struct {
-		Name     string
-		Version  string
+		Name         string
+		Version      string
 		Architecture string
 	}
 	err = wmi.Query("SELECT * FROM Win32_OperatingSystem", &osInfo)
@@ -172,8 +232,8 @@ func captureSystemUsage() (map[string]interface{}, error) {
 
 	// WMI data - CPU Information
 	var cpuInfo []struct {
-		DeviceID  string
-		Name      string
+		DeviceID       string
+		Name           string
 		LoadPercentage uint8
 	}
 	err = wmi.Query("SELECT * FROM Win32_Processor", &cpuInfo)
@@ -183,21 +243,21 @@ func captureSystemUsage() (map[string]interface{}, error) {
 
 	// Prepare the usage data
 	usageData := map[string]interface{}{
-		"Memory Total":      memoryStats.Total / (1024 * 1024),
-		"Memory Used":       memoryStats.Used / (1024 * 1024),
-		"Memory Used %":     memoryStats.UsedPercent,
-		"CPU Usage %":       cpuUsage[0],
-		"Load Average (1m)": loadStats.Load1,
-		"Uptime":            hostInfo.Uptime,
-		"Battery Percentage": powerData["Battery Percentage"],
-		"Is Charging":        powerData["Is Charging"],
+		"Memory Total":         memoryStats.Total / (1024 * 1024),
+		"Memory Used":          memoryStats.Used / (1024 * 1024),
+		"Memory Used %":        memoryStats.UsedPercent,
+		"CPU Usage %":          cpuUsage[0],
+		"Load Average (1m)":    loadStats.Load1,
+		"Uptime":               hostInfo.Uptime,
+		"Battery Percentage":   powerData["Battery Percentage"],
+		"Is Charging":          powerData["Is Charging"],
 		"Time Remaining (hrs)": powerData["Time Remaining (hrs)"],
-		"AC Power":           powerData["AC Power"],
-		"OS Name":            osInfo[0].Name,
-		"OS Version":         osInfo[0].Version,
-		"OS Architecture":    osInfo[0].Architecture,
-		"CPU Model":          cpuInfo[0].Name,
-		"CPU Load %":         cpuInfo[0].LoadPercentage,
+		"AC Power":             powerData["AC Power"],
+		"OS Name":              osInfo[0].Name,
+		"OS Version":           osInfo[0].Version,
+		"OS Architecture":      osInfo[0].Architecture,
+		"CPU Model":            cpuInfo[0].Name,
+		"CPU Load %":           cpuInfo[0].LoadPercentage,
 	}
 
 	return usageData, nil
@@ -242,8 +302,8 @@ func saveActiveLog(clientIP string, clientLatitude, clientLongitude float64, nod
 		clientIP,
 		clientLatitude,
 		clientLongitude,
-		nodeLatitude,
-		nodeLongitude,
+		serverNode.Latitude, // Server Latitude
+		serverNode.Longitude,
 		latency,
 		timestamp,
 		clientData,
@@ -263,7 +323,7 @@ func saveActiveLog(clientIP string, clientLatitude, clientLongitude float64, nod
 		systemUsage["CPU Model"],
 		systemUsage["CPU Load %"],
 	)
-	
+
 	if _, err := file.WriteString(logEntry); err != nil {
 		log.Printf("Error writing to active log CSV file: %v\n", err)
 	}
@@ -318,8 +378,6 @@ func savePassiveLog(activity string, systemUsage map[string]interface{}) {
 		log.Printf("Error writing to passive log CSV file: %v\n", err)
 	}
 }
-
-
 
 // Ensure the uploads folder exists
 func ensureUploadsFolder() error {
@@ -494,6 +552,7 @@ func main() {
 		return
 	}
 	log.Println("Local IP Address:", localIP)
+	
 
 	// Generate unique node ID
 	nodeID := uuid.New().String()
@@ -510,7 +569,7 @@ func main() {
 	}
 
 	// Main server URL
-	mainServerURL := "https://13f0-2409-40c2-1161-f106-7915-c32-dfbb-67f9.ngrok-free.app" // Replace with actual main server URL
+	mainServerURL := "https://89aa-2409-40c2-116b-abb-8bcc-8f3e-2a0-ab10.ngrok-free.app" // Replace with actual main server URL
 
 	// Self-register with the main server
 	selfRegister(mainServerURL, serverNode)
@@ -518,8 +577,7 @@ func main() {
 	// Set up HTTP server
 	http.HandleFunc("/receive", handleRequest)
 	http.HandleFunc("/health", healthCheckHandler)
-    http.HandleFunc("/upload", uploadHandler)
-
+	http.HandleFunc("/upload", uploadHandler)
 
 	// Enable CORS for all domains
 	c := cors.New(cors.Options{

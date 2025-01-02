@@ -9,7 +9,7 @@ import (
     "mime/multipart"
     "net/http"
     "os"
-   
+    "time"
 )
 
 type Node struct {
@@ -57,17 +57,27 @@ func main() {
     log.Printf("Connecting to server node at: %s", uploadURL)
 
     // Upload a file to the server node
-    filePath := "/home/mrrip/Pictures/Screenshot_2024-12-12_20_12_06.png" // Replace with the actual file path
+    filePath := "./myimage.jpeg" // Replace with the actual file path
     uploadFile(uploadURL, filePath)
 }
 
 func uploadFile(url string, filePath string) {
+    // Record the start time to measure latency
+    start := time.Now()
+
     // Open the file to be uploaded
     file, err := os.Open(filePath)
     if err != nil {
         log.Fatalf("Error opening file: %v", err)
     }
     defer file.Close()
+
+    // Log the file info
+    fileInfo, err := file.Stat()
+    if err != nil {
+        log.Fatalf("Error getting file info: %v", err)
+    }
+    log.Printf("File size: %d bytes", fileInfo.Size())
 
     // Create a buffer to hold the multipart form data
     var requestBody bytes.Buffer
@@ -91,6 +101,9 @@ func uploadFile(url string, filePath string) {
         log.Fatalf("Error closing multipart writer: %v", err)
     }
 
+    // Log the form data size for debugging
+    log.Printf("Form data size: %d bytes", requestBody.Len())
+
     // Make the HTTP POST request with the multipart form data
     req, err := http.NewRequest("POST", url, &requestBody)
     if err != nil {
@@ -108,6 +121,9 @@ func uploadFile(url string, filePath string) {
     }
     defer resp.Body.Close()
 
+    // Record the time when the response is received (end time)
+    end := time.Now()
+
     // Read the response from the server
     responseBody, err := io.ReadAll(resp.Body)
     if err != nil {
@@ -116,6 +132,12 @@ func uploadFile(url string, filePath string) {
 
     // Log the server's response
     log.Printf("Server response: %s", string(responseBody))
+
+    // Calculate the latency (time taken for the request)
+    latency := end.Sub(start)
+
+    // Log the latency
+    log.Printf("File upload latency: %v", latency)
 
     // Check for successful upload (200 OK)
     if resp.StatusCode != http.StatusOK {
