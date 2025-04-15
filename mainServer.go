@@ -299,9 +299,15 @@ func main() {
 	http.HandleFunc("/long-poll", longPollHandler)
 	http.HandleFunc("/receive", receiveHandler)
 
-	// Start the main server
-	fmt.Println("Main server is running on port 8080...")
-	if err := http.ListenAndServe(":8080", corsHandler.Handler(http.DefaultServeMux)); err != nil {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // fallback default if PORT is not set
+	}
+
+	fmt.Println("Main server is running on port", port)
+
+	// Start the server with the given port
+	if err := http.ListenAndServe(":"+port, corsHandler.Handler(http.DefaultServeMux)); err != nil {
 		fmt.Println("Error starting server:", err)
 	}
 }
