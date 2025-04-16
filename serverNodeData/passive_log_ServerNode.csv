@@ -1,3 +1,16 @@
 Timestamp,Activity,MemoryTotal,MemoryUsed,MemoryUsedPercent,CPUUsage,LoadAvg,Uptime
 2025-01-02T22:53:35+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>)
 2025-01-03T00:10:50+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>)
+2025-04-16T06:51:05+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>)
+2025-04-16T06:54:16+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>)
+2025-04-16T06:54:22+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>)
+2025-04-16T06:55:22+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>)
+2025-04-16T06:55:38+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>)
+2025-04-16T06:58:01+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>)
+2025-04-16T06:59:37+05:30,Node registered with main server,%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!f(<nil>),%!d(<nil>)
+2025-04-16T06:59:46+05:30,Request received and processed,%!f(uint64=11674),%!f(uint64=3938),33.74,1.26,0.61,2092
+2025-04-16T06:59:49+05:30,Request received and processed,%!f(uint64=11674),%!f(uint64=3929),33.66,5.00,0.72,2095
+2025-04-16T06:59:51+05:30,Request received and processed,%!f(uint64=11674),%!f(uint64=3924),33.62,7.58,0.75,2098
+2025-04-16T06:59:54+05:30,Request received and processed,%!f(uint64=11674),%!f(uint64=3916),33.55,2.51,0.75,2100
+2025-04-16T06:59:56+05:30,Request received and processed,%!f(uint64=11674),%!f(uint64=3919),33.57,1.51,0.69,2103
+2025-04-16T06:59:59+05:30,Request received and processed,%!f(uint64=11674),%!f(uint64=3911),33.51,1.68,0.69,2105
