@@ -4,13 +4,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
 	"os"
-	"io"
-	
+
 	"os/signal"
 	"path/filepath"
 	"syscall"
@@ -73,7 +73,6 @@ func getPublicIP() string {
 	// Wait for the result from the channel
 	return <-ipChannel
 }
-
 
 func getNgrokPublicURL() (string, error) {
 	// Create a channel to receive the result from the goroutine
@@ -182,6 +181,7 @@ func getGeoLocation(ip string) (float64, float64, error) {
 		return 0, 0, err
 	}
 }
+
 // Function to get local IP address of the machine
 func getLocalIPAddress() (string, error) {
 	// Create a channel to receive the result or error
@@ -376,7 +376,6 @@ func saveActiveLog(clientIP string, clientLatitude, clientLongitude float64, nod
 	}
 }
 
-
 // Function to save passive logs (background server operations)
 func savePassiveLog(activity string, systemUsage map[string]interface{}) {
 	// Create a channel for error handling
@@ -466,7 +465,6 @@ func savePassiveLog(activity string, systemUsage map[string]interface{}) {
 		return
 	}
 }
-
 
 // Ensure the uploads folder exists
 func ensureUploadsFolder() error {
@@ -760,7 +758,7 @@ func main() {
 	}
 
 	// Main server URL
-	mainServerURL := "https://89aa-2409-40c2-116b-abb-8bcc-8f3e-2a0-ab10.ngrok-free.app" // Replace with actual main server URL
+	mainServerURL := "https://nodepulse-5jb7.onrender.com" // Replace with actual main server URL
 
 	// Self-register with the main server
 	selfRegister(mainServerURL, serverNode)

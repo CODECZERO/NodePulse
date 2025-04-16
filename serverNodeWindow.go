@@ -552,16 +552,21 @@ func main() {
 		return
 	}
 	log.Println("Local IP Address:", localIP)
-	
+
+	Ngrokurl, err := getNgrokPublicURL()
+	if err != nil {
+		log.Fatalf("Failed to get Ngrok URL: %v", err)
+	}
+	fmt.Println("Ngrok Public URL:", Ngrokurl)
 
 	// Generate unique node ID
 	nodeID := uuid.New().String()
 
 	// Node information
-	port := "8081"
+	port := "4040"
 	serverNode = Node{
 		ID:        nodeID,
-		IPAddress: localIP,
+		IPAddress: Ngrokurl,
 		Latitude:  latitude,
 		Longitude: longitude,
 		Port:      port,
@@ -569,7 +574,7 @@ func main() {
 	}
 
 	// Main server URL
-	mainServerURL := "https://89aa-2409-40c2-116b-abb-8bcc-8f3e-2a0-ab10.ngrok-free.app" // Replace with actual main server URL
+	mainServerURL := "https://nodepulse-5jb7.onrender.com" // Replace with actual main server URL
 
 	// Self-register with the main server
 	selfRegister(mainServerURL, serverNode)
